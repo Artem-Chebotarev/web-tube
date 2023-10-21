@@ -1,7 +1,11 @@
 import './App.css';
+import { PageHeader } from './layouts/PageHeader';
 
-function App() {
-  return <h1>YouTube</h1>;
-}
-
-export default App;
+export const App = () => {
+  return (
+    <div className='max-h-screen flex flex-col'>
+      <PageHeader />
+      <div>2</div>
+    </div>
+  );
+};
