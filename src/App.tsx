@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import './App.css';
 import { CategoryPills } from './components/CategoryPills';
 import { categories, videos } from './data/home';
-import { PageHeader } from './layouts/PageHeader';
+import { Header } from './layouts/Header';
 import { VideoGridItem } from './components/VideoGridItem';
+import { Sidebar } from './layouts/Sidebar';
 
 export const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -11,10 +11,12 @@ export const App = () => {
   return (
     <div className='max-h-screen flex flex-col'>
       {/* Header */}
-      <PageHeader />
+      <Header />
 
       <div className='grid grid-cols-[auto,1fr] flex-grow overflow-auto'>
-        <div>Sidebar</div>
+        {/* Sidebar */}
+        <Sidebar />
+
         <div className='overflow-x-hidden px-8 pb-4'>
           {/* Category Section */}
           <div className='sticky top-0 bg-white z-10 pb-4'>
@@ -24,6 +26,8 @@ export const App = () => {
               onSelect={setSelectedCategory}
             />
           </div>
+
+          {/* Main Content Section */}
           <div className='grid gap-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]'>
             {videos.map((el) => (
               <VideoGridItem key={el.id} {...el} />

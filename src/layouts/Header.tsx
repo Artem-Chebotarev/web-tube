@@ -3,24 +3,39 @@ import logo from '../assets/Logo.png';
 import { Button } from '../components/Button';
 import { useState } from 'react';
 import { Input } from '../components/Input';
+import { useSidebarContext } from '../context/SidebarContext';
 
-export const PageHeader = () => {
+interface HeaderFirstSectionProps {
+  hidden?: boolean;
+}
+
+export const HeaderFirstSection = (props: HeaderFirstSectionProps) => {
+  const { hidden = false } = props;
+
+  const { toggle } = useSidebarContext();
+
+  return (
+    <div
+      className={`gap-4 items-center flex-shrink-0 ${
+        hidden ? 'hidden' : 'flex'
+      }`}
+    >
+      <Button variant='ghost' size='icon' onClick={toggle}>
+        <Menu />
+      </Button>
+      <a href='/'>
+        <img src={logo} className='h-6'></img>
+      </a>
+    </div>
+  );
+};
+
+export const Header = () => {
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
 
   return (
     <div className='flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4'>
-      <div
-        className={`gap-4 items-center flex-shrink-0 ${
-          showFullWidthSearch ? 'hidden' : 'flex'
-        }`}
-      >
-        <Button variant='ghost' size='icon'>
-          <Menu />
-        </Button>
-        <a href='/'>
-          <img src={logo} className='h-6'></img>
-        </a>
-      </div>
+      <HeaderFirstSection hidden={showFullWidthSearch} />
       <form
         className={`gap-4 flex-grow justify-center items-center ${
           showFullWidthSearch ? 'flex' : 'hidden md:flex'
