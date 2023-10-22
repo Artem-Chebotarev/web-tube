@@ -1,6 +1,4 @@
 import {
-  ChevronDown,
-  ChevronUp,
   Clapperboard,
   Clock,
   Home,
@@ -21,112 +19,12 @@ import {
   Shirt,
   Podcast,
 } from 'lucide-react';
-import { Children, ElementType, ReactNode, useState } from 'react';
-import { Button, buttonStyles } from '../components/Button';
-import { twMerge } from 'tailwind-merge';
-import { playlists, subscriptions } from '../data/sidebar';
-import { useSidebarContext } from '../context/SidebarContext';
-import { HeaderFirstSection } from './Header';
-
-interface SmallSidebarItemProps {
-  // We are passing the name of element, not hte actual component
-  Icon: ElementType;
-  title: string;
-  url: string;
-}
-
-const SmallSidebarItem = (props: SmallSidebarItemProps) => {
-  const { Icon, title, url } = props;
-
-  return (
-    <a
-      href={url}
-      className={twMerge(
-        buttonStyles({ variant: 'ghost' }),
-        'py-4 px-1 flex flex-col items-center rounded-lg gap-1',
-      )}
-    >
-      <Icon className='w-6 h-6' />
-      <div className='text-sm'>{title}</div>
-    </a>
-  );
-};
-
-interface LargeSidebarSectionProps {
-  children: ReactNode;
-  title?: string;
-  visibleItemCount?: number;
-}
-
-export const LargeSidebarSection = (props: LargeSidebarSectionProps) => {
-  const {
-    children,
-    title,
-    visibleItemCount = Number.POSITIVE_INFINITY,
-  } = props;
-
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const childrenArray = Children.toArray(children).flat();
-
-  const showExpandeButton = childrenArray.length > visibleItemCount;
-
-  const visibleChildren = isExpanded
-    ? childrenArray
-    : childrenArray.slice(0, visibleItemCount);
-
-  const ButtonIcon = isExpanded ? ChevronUp : ChevronDown;
-
-  return (
-    <div>
-      {title && <div className='ml-4 mt-2 text-lg mb-1'>{title}</div>}
-      {visibleChildren}
-      {showExpandeButton && (
-        <Button
-          variant='ghost'
-          className='w-full flex items-center rounded-lg gap-4 p-3'
-          onClick={() => setIsExpanded((prev) => !prev)}
-        >
-          <ButtonIcon className='w-6 h-6' />
-          <div>{isExpanded ? 'Show Less' : 'Show More'}</div>
-        </Button>
-      )}
-    </div>
-  );
-};
-
-interface LargeSidebarItemProps {
-  IconOrImgUrl: ElementType | string;
-  title: string;
-  url: string;
-  isActive?: boolean;
-}
-
-export const LargeSidebarItem = (props: LargeSidebarItemProps) => {
-  const { isActive = false, IconOrImgUrl, title, url } = props;
-
-  return (
-    <a
-      href={url}
-      className={twMerge(
-        buttonStyles({ variant: 'ghost' }),
-        `w-full flex items-center rounded-lg gap-4 p-3 ${
-          isActive ? 'font-bold bg-neutral-100 hover:bg-secondary' : undefined
-        }`,
-      )}
-    >
-      {typeof IconOrImgUrl === 'string' ? (
-        <img src={IconOrImgUrl} className='w-6 h-6 rounded-full' />
-      ) : (
-        <IconOrImgUrl className='w-6 h-6' />
-      )}
-
-      <div className='whitespace-nowrap overflow-hidden text-ellipsis'>
-        {title}
-      </div>
-    </a>
-  );
-};
+import { playlists, subscriptions } from '../../data/sidebar';
+import { useSidebarContext } from '../../context/SidebarContext';
+import { HeaderFirstSection } from '../Header/Header';
+import { SmallSidebarItem } from './SmallSidebarItem';
+import { LargeSidebarItem } from './LargeSidebarItem';
+import { LargeSidebarSection } from './LargeSidebarSection';
 
 export const Sidebar = () => {
   const { isLargeOpen, isSmallOpen, close } = useSidebarContext();
