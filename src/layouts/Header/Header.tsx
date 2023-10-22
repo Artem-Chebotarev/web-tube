@@ -1,9 +1,9 @@
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from 'lucide-react';
-import logo from '../assets/Logo.png';
-import { Button } from '../components/Button';
+import logo from '../../assets/Logo.png';
+import { Button } from '../../components/Button/Button';
 import { useState } from 'react';
-import { Input } from '../components/Input';
-import { useSidebarContext } from '../context/SidebarContext';
+import { Input } from '../../components/Input/Input';
+import { useSidebarContext } from '../../context/SidebarContext';
 
 interface HeaderFirstSectionProps {
   hidden?: boolean;

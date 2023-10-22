@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { CategoryPills } from './components/CategoryPills';
+import { CategoryPills } from './components/CategoryPills/CategoryPills';
 import { categories, videos } from './data/home';
-import { Header } from './layouts/Header';
-import { VideoGridItem } from './components/VideoGridItem';
-import { Sidebar } from './layouts/Sidebar';
+import { Header } from './layouts/Header/Header';
+import { VideoGridItem } from './components/VideoGridItem/VideoGridItem';
+import { Sidebar } from './layouts/Sidebar/Sidebar';
 
 export const App = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
